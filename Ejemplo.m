@@ -1,5 +1,5 @@
 clear all, close all, clc
-P = 1; % Fijar P inicialmente
+P = 2; % Fijar P inicialmente
 num = [1+P -P]; % Numerador
 den = [1 3 6]; % Denominador
 G = tf(num, den); % Función de transferencia
