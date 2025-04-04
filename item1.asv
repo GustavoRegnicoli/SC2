@@ -10,7 +10,7 @@ Mat_A=[-R/L, -1/L; 1/C 0];
 % Vector de entrada
 Mat_B=[1/L; 0];
 % Vector de salida
-Mat_C=[R 0];
+Mat_C=[0 R];
 
 
 % La inversa de la matriz de los valores propios
@@ -28,12 +28,12 @@ tL=log(0.05)/real(max(eig(Mat_A))) %Constante de tiempo más lerda
 h=tR/3;Tf=tL*3;pasos=Tf/h;
 % Parametros para la fuente
 t=[];
-talt=10e-3; %La fuente cambia cada 10mseg
+talt=10e-3; %Tiempo donde
 ii=1;
 % Condiciones iniciales
 i(1)=0;Vc(1)=0;Ve=12;
 X0=[i(1);Vc(1)];x=[0;0];
-Vo(1)=0;
+vo(1)=0;
 while(ii<(pasos+1))
     t(ii)=ii*h;
     u(ii)=Ve;
@@ -45,14 +45,15 @@ while(ii<(pasos+1))
     xp=Mat_A*(x-X0)+Mat_B*u(ii);
     x=x+h*xp;
     y=Mat_C*x;
-    Vo(ii)=y;
+    vo(ii)=y;
     ii=ii+1;
 end
 % Se grafica la corriente i, la tension del capacitor Vc y la tension de
 % entrada Ve
 figure(1);hold on;
-subplot(4,1,1);plot(t,i);grid on; title('i corriente');
-subplot(4,1,2);plot(t,Vc);grid on; title('Vc tension del capacitor');
-subplot(4,1,3);plot(t,u);grid on; title('Ve entrada');
-subplot(4,1,4);plot(t,Vo);grid on; title('Vo salida');
+subplot(3,1,1);plot(t,i);grid on; title('i corriente');
+subplot(3,1,2);plot(t,Vc);grid on; title('Vc tension del capacitor');
+subplot(3,1,3);plot(t,u);grid on; title('Ve entrada');
+figure
+plot(t,vo);grid on; title('Vo salida');
 
